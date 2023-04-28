@@ -17,4 +17,14 @@ export class Game {
 
         return location;        
     }
+
+    public move(token: Token, spacesToMove: number) {
+        const currentLocation = this.board.get(token);
+
+        if (currentLocation === undefined) {
+            throw new Error("Token does not exist in this game")
+        }
+
+        this.board.set(token, currentLocation + spacesToMove);
+    }
 }
