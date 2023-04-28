@@ -22,4 +22,13 @@ describe("Moving your token", () => {
         // assert
         expect(game.getTokenLocation(token)).toBe(4);
     })
+
+    it("Given the game is started, when a token not on the board is moved, then an error is thrown", () => {
+        // arrange
+        const token = new Token("steve");
+        const game = new Game([]);
+        // act
+        // assert
+        expect(() => game.move(token, 2)).toThrow(Error);
+    })
 })

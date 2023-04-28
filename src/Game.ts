@@ -9,22 +9,19 @@ export class Game {
     }
 
     public getTokenLocation(token: Token): number {
+        return this.getCurrentLocation(token);        
+    }
+
+    private getCurrentLocation(token: Token): number {
         const location = this.board.get(token);
-        
         if (location === undefined) {
             throw new Error("Token does not exist in this game")
         }
-
-        return location;        
+        return location;
     }
 
     public move(token: Token, spacesToMove: number) {
-        const currentLocation = this.board.get(token);
-
-        if (currentLocation === undefined) {
-            throw new Error("Token does not exist in this game")
-        }
-
+        const currentLocation = this.getCurrentLocation(token);
         this.board.set(token, currentLocation + spacesToMove);
     }
 }
