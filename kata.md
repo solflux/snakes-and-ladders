@@ -11,9 +11,11 @@ So that I can get closer to the goal
 Given the game is started
 When the token is placed on the board
 Then the token is on square 1
+
 Given the token is on square 1
 When the token is moved 3 spaces
 Then the token is on square 4
+
 Given the token is on square 1
 When the token is moved 3 spaces
 And then it is moved 4 spaces
@@ -27,6 +29,7 @@ So that there is an element of chance in the game
 Given the game is started
 When the player rolls a die
 Then the result should be between 1-6 inclusive
+
 Given the player rolls a 4
 When they move their token
 Then the token should move 4 spaces
@@ -40,6 +43,7 @@ Given the token is on square 97
 When the token is moved 3 spaces
 Then the token is on square 100
 And the player has won the game
+
 Given the token is on square 97
 When the token is moved 4 spaces
 Then the token is on square 97
@@ -56,6 +60,7 @@ So that the game is more fun
 Given there is a snake connecting squares 2 and 12
 When the token lands on square 12
 Then the token is on square 2
+
 Given there is a snake connecting squares 2 and 12
 When the token lands on square 2
 Then the token is on square 2
@@ -68,6 +73,7 @@ So that the game is more fun
 Given there is a ladder connecting squares 2 and 12
 When the token lands on square 2
 Then the token is on square 12
+
 Given there is a ladder connecting squares 2 and 12
 When the token lands on square 12
 Then the token is on square 12
@@ -83,12 +89,15 @@ So that player 1 doesn't always go first
 Given there are two players
 When the game is started
 Then the players must roll dice to determine their play order
+
 Given the players are rolling to determine play order
 When Player 1 rolls higher than Player 2
 Then Player 1 rolls first
+
 Given the players are rolling to determine play order
 When Player 2 rolls higher than Player 1
 Then Player 2 rolls first
+
 Given the players are rolling to determine play order
 When Player 1 rolls the same as Player 2
 Then the players must roll again
@@ -101,6 +110,7 @@ So that the game is more fair
 Given it is Player 1's turn
 When they have moved their token
 Then it is Player 2's turn
+
 Given it is Player 2's turn
 When they have moved their token
 Then it is Player 1's turn
@@ -116,6 +126,7 @@ So that I can play even when I don't have friends
 Given there is a computer controller character
 When the game is started
 Then the computer should roll for it's turn order
+
 Given there is a computer controller character
 When it is that character's turn
 Then they should roll the dice and move their token
