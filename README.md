@@ -33,7 +33,7 @@ To get a local copy up and running follow these simple steps:
 ## Roadmap
 
 - [ ] Moving your token
-    - [ ] Token can move across the board
+    - [x] Token can move across the board
     - [ ] Moves are determined by dice rolls
     - [ ] Player can win the game
 - [ ] Snakes and ladders

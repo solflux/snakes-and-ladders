@@ -30,4 +30,15 @@ describe("Moving your token", () => {
         // assert
         expect(() => game.move(token, 2)).toThrow(Error);
     })
+
+    it("Given the token is on square 1, when the token is moved 3 spaces, and then the token is moved 4 spaces, then the token is on square 8", () => {
+        // arrange
+        const token = new Token("steve");
+        const game = new Game([token]);
+        // act
+        game.move(token, 3);
+        game.move(token, 4);
+        // assert
+        expect(game.getTokenLocation(token)).toBe(8);
+    })
 })
