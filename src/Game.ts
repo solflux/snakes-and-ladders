@@ -22,6 +22,10 @@ export class Game {
         const currentLocation = this.getCurrentLocation(token);
         this.board.set(token, currentLocation + spacesToMove);
     }
+
+    public roll(): number {
+        return 0;
+    }
 }
 
 export class Token {
