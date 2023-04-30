@@ -1,5 +1,3 @@
-import { Token } from "./Token";
-
 export class Game {
     private board: Map<Token, number>;
 
@@ -23,5 +21,13 @@ export class Game {
     public move(token: Token, spacesToMove: number) {
         const currentLocation = this.getCurrentLocation(token);
         this.board.set(token, currentLocation + spacesToMove);
+    }
+}
+
+export class Token {
+    readonly id: string;
+
+    constructor(id: string){
+        this.id = id;
     }
 }

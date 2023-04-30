@@ -1,5 +1,4 @@
-import { Token } from "./Token";
-import { Game } from "./Game";
+import { Token, Game } from "./Game";
 
 
 describe("Moving your token", () => {
