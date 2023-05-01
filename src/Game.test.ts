@@ -1,3 +1,4 @@
+import { Die } from "./Die";
 import { Token, Game } from "./Game";
 
 
@@ -44,15 +45,17 @@ describe("Moving your token", () => {
         })
     })
 
+    // todo: can probably be deleted thanks to the die tests
     describe("Moves are determined by dice rolls", () => {
         it("Given the game is started, when the player rolls a die, then the results should be between 1-6 inclusive", () => {
             // arrange
+            const die =  new Die(() => 0.999)
             const token = new Token("steve");
-            const game = new Game([token]);
+            const game = new Game([token], die);
             // act
             const roll = game.roll();
             // assert
-            expect(roll).toBe(8);
+            expect(roll).toBe(6);
         })
-    })    
+    })
 })

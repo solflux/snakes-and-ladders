@@ -1,9 +1,14 @@
+import { Die } from "./Die";
+
 export class Game {
     private board: Map<Token, number>;
+    
+    private die;
 
-    constructor(tokens: Token[]){
+    constructor(tokens: Token[], die: Die = new Die()){
         this.board = new Map<Token, number>()
         tokens.forEach(token => this.board.set(token, 1));
+        this.die = die;
     }
 
     public getTokenLocation(token: Token): number {
@@ -24,8 +29,9 @@ export class Game {
     }
 
     public roll(): number {
-        return 0;
+        return this.die.roll();
     }
+
 }
 
 export class Token {
