@@ -40,7 +40,6 @@ test("Given that the random generator provides 1, when the die is rolled, an err
     // arrange
     const die = new Die(() => 1);
     // act
-    const roll = die.roll();
     // assert
     expect(() => die.roll()).toThrow(Error);
 })
@@ -49,7 +48,6 @@ test("Given that the random generator provides -1, when the die is rolled, an er
     // arrange
     const die = new Die(() => -1);
     // act
-    const roll = die.roll();
     // assert
     expect(() => die.roll()).toThrow(Error);
 })
