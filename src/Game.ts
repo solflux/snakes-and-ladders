@@ -11,7 +11,7 @@ export class Game {
         this.die = die;
     }
 
-    public getTokenLocation(token: Token): number {
+    public getTokenLocationFor(token: Token): number {
         return this.getCurrentLocation(token);        
     }
 
