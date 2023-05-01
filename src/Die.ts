@@ -8,7 +8,12 @@ export class Die {
     }
 
     public roll():number {
-        // generate random float, then scale by max rolls size and use floor to convert to integer
+        const randomFloat = this.randomGenerator();
+        // guard against poorly configured generators, not sure this is stricly necessary
+        if (randomFloat < 0 || randomFloat >= 1) {
+            throw new Error("Random generator provided values outside of expected bounds")
+        }
+        // scale by max roll size and use floor to convert to integer
         const randomInteger = Math.floor(this.randomGenerator() * this.maxRoll);
         // then add min roll so it isn't counting from 0
         return randomInteger + this.minRoll;
