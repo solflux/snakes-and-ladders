@@ -3,7 +3,8 @@ import { Die, Rollable } from "./Die";
 export class Game {
     private board: Map<Token, number>;
     private rolls: Map<Token, number>;
-    private die;
+    private winner: Token | undefined;
+    private die: Rollable;
 
     // non-positive value to represent the user hasn't rolled
     private NO_ROLL = -1
@@ -48,6 +49,9 @@ export class Game {
         return roll;
     }
 
+    public getWinner(): Token | undefined {
+        return this.winner;
+    }
 }
 
 export class Token {

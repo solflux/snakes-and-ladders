@@ -95,7 +95,7 @@ describe("Moving your token", () => {
     })
 
     describe("Player can win the game", () => {
-        it("Given the token is on square 97, when the token is moved 3 spaces, then the token is on square 100, and the player has won the game", () => {
+        it("Given the token is on square 97, when the token is moved 3 spaces, then the token is on square 100", () => {
             // arrange
             const die = new DeterministicDie([3]);
             const board = new Map<Token, number>([
@@ -107,6 +107,20 @@ describe("Moving your token", () => {
             game.move(playerOne);
             // assert
             expect(game.getTokenLocationFor(playerOne)).toBe(100);
+        })
+
+        it("Given the token is on square 97, when the token is moved 3 spaces, then the player has won the game", () => {
+            // arrange
+            const die = new DeterministicDie([3]);
+            const board = new Map<Token, number>([
+                [playerOne, 97]
+            ]);
+            const game = new Game([playerOne], die, board);
+            // act
+            game.roll(playerOne);
+            game.move(playerOne);
+            // assert
+            expect(game.getWinner()).toBe(playerOne);
         })
 
         it.skip("Given the token is on square 97, when the token is moved 4 spaces, then the token is on square 97, and the player has not won the game", () => {
