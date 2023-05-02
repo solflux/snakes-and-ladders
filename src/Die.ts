@@ -1,4 +1,8 @@
-export class Die {
+export interface Rollable {
+    roll: () => number;
+}
+
+export class Die implements Rollable {
     private maxRoll: number = 6;
     private minRoll: number = 1;
     private randomGenerator: RandomFloatGenerator;

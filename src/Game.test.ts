@@ -1,4 +1,4 @@
-import { Die } from "./Die";
+import { Die, Rollable } from "./Die";
 import { Token, Game } from "./Game";
 
 const playerOne: Token = new Token("steve");
@@ -16,9 +16,10 @@ describe("Moving your token", () => {
     
         it("Given the token is on square 1, when the token is moved 3 spaces, then the token is on square 4", () => {
             // arrange
-            const game = new Game([playerOne]);
+            const game = new Game([playerOne], new Die(() => 0.4));
             // act
-            game.move(playerOne, 3);
+            game.roll(playerOne);
+            game.move(playerOne);
             // assert
             expect(game.getTokenLocationFor(playerOne)).toBe(4);
         })
@@ -28,17 +29,36 @@ describe("Moving your token", () => {
             const game = new Game([]);
             // act
             // assert
-            expect(() => game.move(playerOne, 2)).toThrow(Error);
+            expect(() => game.move(playerOne)).toThrow(Error);
         })
     
         it("Given the token is on square 1, when the token is moved 3 spaces, and then the token is moved 4 spaces, then the token is on square 8", () => {
             // arrange
-            const game = new Game([playerOne]);
+            const game = new Game([playerOne], new DeterministicDie([3,4]));
             // act
-            game.move(playerOne, 3);
-            game.move(playerOne, 4);
+            game.roll(playerOne);
+            game.move(playerOne);
+            game.roll(playerOne);
+            game.move(playerOne);
             // assert
             expect(game.getTokenLocationFor(playerOne)).toBe(8);
+        })
+
+        it("Give the game is started, when a player moves without rolling first, then an error is thrown", () => {
+            // arrange
+            const game = new Game([playerOne]);
+            // act
+            // assert
+            expect(() => game.move(playerOne)).toThrow(Error);
+        })
+        it("Give the the play has moved once, when a player moves again without rolling first, then an error is thrown", () => {
+            // arrange
+            const game = new Game([playerOne]);
+            // act
+            game.roll(playerOne);
+            game.move(playerOne);
+            // assert
+            expect(() => game.move(playerOne)).toThrow(Error);
         })
     })
 
@@ -49,7 +69,7 @@ describe("Moving your token", () => {
             const die = new Die(() => 0.999);
             const game = new Game([playerOne], die);
             // act
-            const roll = game.roll();
+            const roll = game.roll(playerOne);
             // assert
             expect(roll).toBe(6);
         })
@@ -59,10 +79,26 @@ describe("Moving your token", () => {
             const die = new Die(() => 0.666);
             const game = new Game([playerOne], die);
             // act
-            const roll = game.roll();
-            game.move(playerOne, roll);
+            const roll = game.roll(playerOne);
+            game.move(playerOne);
             // assert
             expect(game.getTokenLocationFor(playerOne)).toBe(5);
         })
     })
 })
+
+class DeterministicDie implements Rollable {
+    private rolls: number[];
+    private currentIndex: number = 0;
+
+    constructor(rolls: number[]){
+        this.rolls = rolls;
+    }
+
+    public roll(): number {
+        // very niave implementation, but fine as a fake for these tests
+        const roll = this.rolls[this.currentIndex];
+        this.currentIndex = this.currentIndex + 1;
+        return roll;
+    }
+}
