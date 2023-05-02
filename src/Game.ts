@@ -8,6 +8,8 @@ export class Game {
 
     // non-positive value to represent the user hasn't rolled
     private NO_ROLL = -1
+    // represent the final square number
+    private MAX_BOARD_SIZE = 100;
 
     constructor(tokens: Token[], die: Rollable = new Die(), board: Map<Token, number> = new Map<Token, number>()) {
         this.board = board;
@@ -39,8 +41,12 @@ export class Game {
             throw new Error(`No roll found for token: ${token.id}`)
         }
         const currentLocation = this.getCurrentLocation(token);
-        this.board.set(token, currentLocation + spacesToMove);
+        const newLocation = currentLocation + spacesToMove;
+        this.board.set(token, newLocation);
         this.rolls.set(token, this.NO_ROLL);
+        if (newLocation === this.MAX_BOARD_SIZE) {
+            this.winner = token;
+        }
     }
 
     public roll(token: Token): number {
