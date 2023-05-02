@@ -1,7 +1,24 @@
-import { Die, Rollable } from "./Die";
+import { Rollable } from "./Die";
 import { Token, Game } from "./Game";
 
 const playerOne: Token = new Token("steve");
+
+// fake to help inject specific rolls
+class DeterministicDie implements Rollable {
+    private rolls: number[];
+    private currentIndex: number = 0;
+
+    constructor(rolls: number[]){
+        this.rolls = rolls;
+    }
+
+    public roll(): number {
+        // very niave implementation, but fine as a fake for these tests
+        const roll = this.rolls[this.currentIndex];
+        this.currentIndex = this.currentIndex + 1;
+        return roll;
+    }
+}
 
 describe("Moving your token", () => {
     describe("Token can move across the board", () => {
@@ -16,7 +33,7 @@ describe("Moving your token", () => {
     
         it("Given the token is on square 1, when the token is moved 3 spaces, then the token is on square 4", () => {
             // arrange
-            const game = new Game([playerOne], new Die(() => 0.4));
+            const game = new Game([playerOne], new DeterministicDie([3]));
             // act
             game.roll(playerOne);
             game.move(playerOne);
@@ -62,21 +79,12 @@ describe("Moving your token", () => {
         })
     })
 
-    // todo: can probably be deleted thanks to the die tests
     describe("Moves are determined by dice rolls", () => {
-        it("Given the game is started, when the player rolls a die, then the results should be between 1-6 inclusive", () => {
-            // arrange
-            const die = new Die(() => 0.999);
-            const game = new Game([playerOne], die);
-            // act
-            const roll = game.roll(playerOne);
-            // assert
-            expect(roll).toBe(6);
-        })
+        // note: removed between 1-6 test specified in kata, as it's covered by die tests and isn't really a good test case
 
         it("Give the player rolls a 4, when they move their token, then the token should move 4 spaces", () => {
             // arrange
-            const die = new Die(() => 0.666);
+            const die = new DeterministicDie([4]);
             const game = new Game([playerOne], die);
             // act
             const roll = game.roll(playerOne);
@@ -87,18 +95,3 @@ describe("Moving your token", () => {
     })
 })
 
-class DeterministicDie implements Rollable {
-    private rolls: number[];
-    private currentIndex: number = 0;
-
-    constructor(rolls: number[]){
-        this.rolls = rolls;
-    }
-
-    public roll(): number {
-        // very niave implementation, but fine as a fake for these tests
-        const roll = this.rolls[this.currentIndex];
-        this.currentIndex = this.currentIndex + 1;
-        return roll;
-    }
-}

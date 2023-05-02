@@ -2,6 +2,8 @@ export interface Rollable {
     roll: () => number;
 }
 
+export type RandomFloatGenerator = () => number;
+
 export class Die implements Rollable {
     private maxRoll: number = 6;
     private minRoll: number = 1;
@@ -23,5 +25,3 @@ export class Die implements Rollable {
         return randomInteger + this.minRoll;
     }
 }
-
-export type RandomFloatGenerator = () => number;
