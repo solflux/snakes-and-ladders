@@ -36,17 +36,28 @@ export class Game {
     }
 
     public move(token: Token) {
-        const spacesToMove = this.rolls.get(token);
-        if (spacesToMove === undefined || spacesToMove === this.NO_ROLL) {
-            throw new Error(`No roll found for token: ${token.id}`)
-        }
-        const currentLocation = this.getCurrentLocation(token);
-        const newLocation = currentLocation + spacesToMove;
+        const newLocation = this.getNewLocation(token);
         this.board.set(token, newLocation);
+        // reset the rolls to show roll has been used up
         this.rolls.set(token, this.NO_ROLL);
         if (newLocation === this.MAX_BOARD_SIZE) {
             this.winner = token;
         }
+    }
+
+    private getNewLocation(token: Token): number {
+        const originalLocation = this.getCurrentLocation(token)
+        const spacesToMove = this.rolls.get(token);
+        if (spacesToMove === undefined || spacesToMove === this.NO_ROLL) {
+            throw new Error(`No roll found for token: ${token.id}`)
+        }
+        // assume they haven't overshot the board
+        let newLocation = originalLocation + spacesToMove; 
+        if (newLocation > this.MAX_BOARD_SIZE) {
+            // turns out they have so don't actually move them
+            newLocation = originalLocation;
+        }
+        return newLocation;
     }
 
     public roll(token: Token): number {
