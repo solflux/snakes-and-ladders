@@ -8,11 +8,14 @@ export class Game {
     // non-positive value to represent the user hasn't rolled
     private NO_ROLL = -1
 
-    constructor(tokens: Token[], die: Rollable = new Die()){
-        this.board = new Map<Token, number>()
-        tokens.forEach(token => this.board.set(token, 1));
+    constructor(tokens: Token[], die: Rollable = new Die(), board: Map<Token, number> = new Map<Token, number>()) {
+        this.board = board;
+        // initialize only if empty (i.e. not supplied)
+        if (this.board.size === 0) {
+            tokens.forEach(token => this.board.set(token, 1));
+        }
         this.rolls = new Map<Token, number>();
-        // initialise 
+        // default all players to no roll
         tokens.forEach(token => this.rolls.set(token, this.NO_ROLL));
         this.die = die;
     }
