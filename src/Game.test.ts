@@ -137,10 +137,18 @@ describe("Moving your token", () => {
             expect(game.getTokenLocationFor(playerOne)).toBe(97);
         })
 
-        it.skip("Given the token is on square 97, when the token is moved 4 spaces, then the player has not won the game", () => {
+        it("Given the token is on square 97, when the token is moved 4 spaces, then the player has not won the game", () => {
             // arrange
+            const die = new DeterministicDie([4]);
+            const board = new Map<Token, number>([
+                [playerOne, 97]
+            ]);
+            const game = new Game([playerOne], die, board);
             // act
+            game.roll(playerOne);
+            game.move(playerOne);
             // assert
+            expect(game.getWinner()).toBe(undefined);
         })
     })
 })
