@@ -171,6 +171,23 @@ describe("Snakes and ladders", () => {
             // act
             expect(game.getTokenLocationFor(playerOne)).toBe(2);
         })
+
+        it("Given there is a snake connecting square 2 and 12, when the token lands on square 2, then the token is on square 2", () => {
+            // arrange
+            const die = new DeterministicDie([1]);
+            const board = new Map<Token, number>([
+                [playerOne, 1]
+            ]);
+            const transformations = new Map<number, number>([
+                [12, -10]
+            ]);
+            const game = new Game([playerOne], die, board, transformations);
+            // assert
+            game.roll(playerOne);
+            game.move(playerOne);
+            // act
+            expect(game.getTokenLocationFor(playerOne)).toBe(2);
+        })
     })
 })
 
