@@ -161,7 +161,10 @@ describe("Snakes and ladders", () => {
             const board = new Map<Token, number>([
                 [playerOne, 10]
             ]);
-            const game = new Game([playerOne], die, board);
+            const transformations = new Map<number, number>([
+                [12, -10]
+            ]);
+            const game = new Game([playerOne], die, board, transformations);
             // assert
             game.roll(playerOne);
             game.move(playerOne);
