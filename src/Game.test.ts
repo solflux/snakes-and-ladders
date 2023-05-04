@@ -153,3 +153,21 @@ describe("Moving your token", () => {
     })
 })
 
+describe("Snakes and ladders", () => {
+    describe("Snakes go down", () => {
+        it("Given there is a snake connecting square 2 and 12, when the token lands on square 12, then the token is on square 2", () => {
+            // arrange
+            const die = new DeterministicDie([2]);
+            const board = new Map<Token, number>([
+                [playerOne, 10]
+            ]);
+            const game = new Game([playerOne], die, board);
+            // assert
+            game.roll(playerOne);
+            game.move(playerOne);
+            // act
+            expect(game.getTokenLocationFor(playerOne)).toBe(2);
+        })
+    })
+})
+
